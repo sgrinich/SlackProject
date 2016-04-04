@@ -15,6 +15,7 @@
 		E2B1C8941CB3290000053C78 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E2B1C8921CB3290000053C78 /* LaunchScreen.storyboard */; };
 		E2B1C89F1CB3290000053C78 /* SlackProjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B1C89E1CB3290000053C78 /* SlackProjectTests.swift */; };
 		E2B1C8AA1CB3290000053C78 /* SlackProjectUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B1C8A91CB3290000053C78 /* SlackProjectUITests.swift */; };
+		E2B1C8B81CB3304F00053C78 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B1C8B71CB3304F00053C78 /* SwiftyJSON.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		E2B1C8A51CB3290000053C78 /* SlackProjectUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SlackProjectUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2B1C8A91CB3290000053C78 /* SlackProjectUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlackProjectUITests.swift; sourceTree = "<group>"; };
 		E2B1C8AB1CB3290000053C78 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E2B1C8B71CB3304F00053C78 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 				E2B1C8921CB3290000053C78 /* LaunchScreen.storyboard */,
 				E2B1C8951CB3290000053C78 /* Info.plist */,
 				E2B1C88D1CB3290000053C78 /* SlackProject.xcdatamodeld */,
+				E2B1C8B71CB3304F00053C78 /* SwiftyJSON.swift */,
 			);
 			path = SlackProject;
 			sourceTree = "<group>";
@@ -262,6 +265,7 @@
 				E2B1C8891CB3290000053C78 /* ViewController.swift in Sources */,
 				E2B1C8871CB3290000053C78 /* AppDelegate.swift in Sources */,
 				E2B1C88F1CB3290000053C78 /* SlackProject.xcdatamodeld in Sources */,
+				E2B1C8B81CB3304F00053C78 /* SwiftyJSON.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
