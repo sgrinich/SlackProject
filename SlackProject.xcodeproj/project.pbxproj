@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		E2B1C8871CB3290000053C78 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B1C8861CB3290000053C78 /* AppDelegate.swift */; };
-		E2B1C8891CB3290000053C78 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B1C8881CB3290000053C78 /* ViewController.swift */; };
 		E2B1C88C1CB3290000053C78 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E2B1C88A1CB3290000053C78 /* Main.storyboard */; };
 		E2B1C88F1CB3290000053C78 /* SlackProject.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E2B1C88D1CB3290000053C78 /* SlackProject.xcdatamodeld */; };
 		E2B1C8911CB3290000053C78 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E2B1C8901CB3290000053C78 /* Assets.xcassets */; };
@@ -16,6 +15,9 @@
 		E2B1C89F1CB3290000053C78 /* SlackProjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B1C89E1CB3290000053C78 /* SlackProjectTests.swift */; };
 		E2B1C8AA1CB3290000053C78 /* SlackProjectUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B1C8A91CB3290000053C78 /* SlackProjectUITests.swift */; };
 		E2B1C8B81CB3304F00053C78 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B1C8B71CB3304F00053C78 /* SwiftyJSON.swift */; };
+		E2B1C8BB1CB330EF00053C78 /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B1C8B91CB330EF00053C78 /* ProfileTableViewController.swift */; };
+		E2B1C8BC1CB330EF00053C78 /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B1C8BA1CB330EF00053C78 /* ProfileTableViewCell.swift */; };
+		E2B1C8BE1CB3310E00053C78 /* SlackProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B1C8BD1CB3310E00053C78 /* SlackProfile.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,7 +40,6 @@
 /* Begin PBXFileReference section */
 		E2B1C8831CB3290000053C78 /* SlackProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SlackProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2B1C8861CB3290000053C78 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		E2B1C8881CB3290000053C78 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		E2B1C88B1CB3290000053C78 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E2B1C88E1CB3290000053C78 /* SlackProject.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SlackProject.xcdatamodel; sourceTree = "<group>"; };
 		E2B1C8901CB3290000053C78 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -51,6 +52,9 @@
 		E2B1C8A91CB3290000053C78 /* SlackProjectUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlackProjectUITests.swift; sourceTree = "<group>"; };
 		E2B1C8AB1CB3290000053C78 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E2B1C8B71CB3304F00053C78 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
+		E2B1C8B91CB330EF00053C78 /* ProfileTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTableViewController.swift; sourceTree = "<group>"; };
+		E2B1C8BA1CB330EF00053C78 /* ProfileTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTableViewCell.swift; sourceTree = "<group>"; };
+		E2B1C8BD1CB3310E00053C78 /* SlackProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlackProfile.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,7 +106,9 @@
 			isa = PBXGroup;
 			children = (
 				E2B1C8861CB3290000053C78 /* AppDelegate.swift */,
-				E2B1C8881CB3290000053C78 /* ViewController.swift */,
+				E2B1C8B91CB330EF00053C78 /* ProfileTableViewController.swift */,
+				E2B1C8BA1CB330EF00053C78 /* ProfileTableViewCell.swift */,
+				E2B1C8BD1CB3310E00053C78 /* SlackProfile.swift */,
 				E2B1C88A1CB3290000053C78 /* Main.storyboard */,
 				E2B1C8901CB3290000053C78 /* Assets.xcassets */,
 				E2B1C8921CB3290000053C78 /* LaunchScreen.storyboard */,
@@ -262,8 +268,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E2B1C8891CB3290000053C78 /* ViewController.swift in Sources */,
+				E2B1C8BE1CB3310E00053C78 /* SlackProfile.swift in Sources */,
+				E2B1C8BB1CB330EF00053C78 /* ProfileTableViewController.swift in Sources */,
 				E2B1C8871CB3290000053C78 /* AppDelegate.swift in Sources */,
+				E2B1C8BC1CB330EF00053C78 /* ProfileTableViewCell.swift in Sources */,
 				E2B1C88F1CB3290000053C78 /* SlackProject.xcdatamodeld in Sources */,
 				E2B1C8B81CB3304F00053C78 /* SwiftyJSON.swift in Sources */,
 			);
