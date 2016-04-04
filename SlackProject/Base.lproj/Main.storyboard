@@ -3,24 +3,42 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Table View Controller-->
+        <!--Profile Table View Controller-->
         <scene sceneID="pT2-9V-Mwf">
             <objects>
-                <tableViewController id="tmf-MS-P7a" sceneMemberID="viewController">
+                <tableViewController id="tmf-MS-P7a" customClass="ProfileTableViewController" customModule="SlackProject" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="ieJ-Sc-aOj">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="WUW-u8-7Nm">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="WUW-u8-7Nm" customClass="ProfileTableViewCell" customModule="SlackProject" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WUW-u8-7Nm" id="D5x-d0-9Wp">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2H5-OK-8ez">
+                                            <rect key="frame" x="32" y="11" width="42" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="2H5-OK-8ez" firstAttribute="top" secondItem="D5x-d0-9Wp" secondAttribute="topMargin" constant="3" id="KIb-AA-644"/>
+                                        <constraint firstItem="2H5-OK-8ez" firstAttribute="leading" secondItem="D5x-d0-9Wp" secondAttribute="leadingMargin" constant="24" id="axZ-KT-nnc"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="2H5-OK-8ez" secondAttribute="bottom" constant="3" id="fb6-J3-Poj"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="2H5-OK-8ez" secondAttribute="trailing" constant="518" id="n62-J2-UCp"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="usernameLabel" destination="2H5-OK-8ez" id="SL8-zI-aT0"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
