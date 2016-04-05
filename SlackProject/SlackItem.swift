@@ -17,5 +17,6 @@ class SlackItem: NSManagedObject {
     @NSManaged var phone:String?
     @NSManaged var email:String?
     @NSManaged var image:NSData?
+    @NSManaged var color:String?
     
 }

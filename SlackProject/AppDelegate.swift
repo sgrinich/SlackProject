@@ -17,7 +17,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+
+        UINavigationBar.appearance().barTintColor = UIColor(red: 204.0/255.0, green: 215.0/255.0, blue: 221.0/255.0, alpha: 1.0)
+        UINavigationBar.appearance().tintColor = UIColor.blackColor()
+        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor.blackColor()]
+        
         let defaults = NSUserDefaults.standardUserDefaults()
         let isPreloaded = defaults.boolForKey("isPreloaded")
         if !isPreloaded {
@@ -117,9 +121,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     
-    func parseJSON (contentsOfURL: NSURL, encoding: NSStringEncoding) -> [(username:String, realname:String, title: String, image: NSData, phone: String, email: String)]? {
+    func parseJSON (contentsOfURL: NSURL, encoding: NSStringEncoding) -> [(username:String, realname:String, title: String, image: NSData, phone: String, email: String, color: String)]? {
         // Load the JSON file and parse it
-        var items:[(username:String, realname:String, title: String, image: NSData, phone: String, email: String)]?
+        var items:[(username:String, realname:String, title: String, image: NSData, phone: String, email: String, color: String)]?
 
         
         do {
@@ -149,7 +153,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     let imageData = NSData(contentsOfURL: NSURL(string:imageURL)!)!
                     
                     
-                    let item = (username: member["name"].stringValue, realname: member["real_name"].stringValue, title: userProfile["title"].stringValue, image: imageData, phone: userProfile["phone"].stringValue, email: userProfile["email"].stringValue)
+                    let item = (username: member["name"].stringValue, realname: member["real_name"].stringValue, title: userProfile["title"].stringValue, image: imageData, phone: userProfile["phone"].stringValue, email: userProfile["email"].stringValue, color: member["color"].stringValue)
                     
                     items?.append(item)
                     
@@ -188,6 +192,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         slackItem.image = item.image
                         slackItem.phone = item.phone
                         slackItem.email = item.email
+                        slackItem.color = item.color
                         
                         do {
                             try managedObjectContext.save()

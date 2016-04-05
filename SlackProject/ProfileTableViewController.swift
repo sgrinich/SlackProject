@@ -64,15 +64,28 @@ class ProfileTableViewController: UITableViewController {
         
         let image : UIImage = UIImage(data: profile.image!)!
 
-        cell.usernameLabel.text = profile.username
+        cell.usernameLabel.text = profile.realname
         cell.profileImage.image = image
-//        cell.profileImage.layer.cornerRadius = cell.profileImage.layer.frame.width / 2
-        
+        cell.profileImage.layer.cornerRadius = cell.profileImage.layer.frame.width / 2
+        cell.profileImage.layer.masksToBounds = true
         return cell
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+        let destination = storyboard.instantiateViewControllerWithIdentifier("profileViewController") as! ProfileViewController
+        
+        let profile = self.slackItems[indexPath.row]
+        destination.slackItem = profile
+        
+        print("touching")
+        
+        navigationController?.pushViewController(destination, animated: true)
+
+
     }
     
     
