@@ -33,6 +33,11 @@ class ProfileViewController: UIViewController, MFMailComposeViewControllerDelega
 
         if let profile = slackItem {
             // do something with myData
+            
+            self.navigationItem.title = ""
+
+            
+            
             titlelabel.text = profile.title
             
             let image : UIImage = UIImage(data: profile.image!)!
