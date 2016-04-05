@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Profile Table View Controller-->
@@ -27,13 +28,22 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vrx-Ka-DCh">
+                                            <rect key="frame" x="37" y="12" width="75" height="67"/>
+                                        </imageView>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="2H5-OK-8ez" firstAttribute="centerY" secondItem="D5x-d0-9Wp" secondAttribute="centerY" id="0eX-XB-UkY"/>
+                                        <constraint firstItem="vrx-Ka-DCh" firstAttribute="top" secondItem="D5x-d0-9Wp" secondAttribute="topMargin" constant="4" id="91V-vN-IbK"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="vrx-Ka-DCh" secondAttribute="bottom" constant="5" id="9ui-rF-3VL"/>
+                                        <constraint firstItem="vrx-Ka-DCh" firstAttribute="leading" secondItem="D5x-d0-9Wp" secondAttribute="leadingMargin" constant="29" id="I0R-ZC-rNW"/>
+                                        <constraint firstItem="2H5-OK-8ez" firstAttribute="leading" secondItem="vrx-Ka-DCh" secondAttribute="trailing" constant="122" id="Mb6-6h-Ny8"/>
                                         <constraint firstItem="2H5-OK-8ez" firstAttribute="centerX" secondItem="D5x-d0-9Wp" secondAttribute="centerX" id="PAD-2g-iUb"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="imageView" destination="vrx-Ka-DCh" id="rLN-P6-gwJ"/>
+                                    <outlet property="profileImage" destination="vrx-Ka-DCh" id="G4M-Wd-5Oa"/>
                                     <outlet property="usernameLabel" destination="2H5-OK-8ez" id="SL8-zI-aT0"/>
                                 </connections>
                             </tableViewCell>

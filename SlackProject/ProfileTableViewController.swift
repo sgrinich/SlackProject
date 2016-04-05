@@ -32,6 +32,11 @@ class ProfileTableViewController: UITableViewController {
             }
         }
         
+        // Need this so images load in TableViewCells right away
+        dispatch_async(dispatch_get_main_queue(), {
+            self.tableView.reloadData()
+            })
+        
 
     }
     
@@ -54,8 +59,13 @@ class ProfileTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! ProfileTableViewCell
 
         let profile = self.slackItems[indexPath.row]
-        cell.usernameLabel.text = profile.username
         
+        let image : UIImage = UIImage(data: profile.image!)!
+
+        cell.usernameLabel.text = profile.username
+        cell.profileImage.image = image
+        
+//        cell.setNeedsLayout()
         return cell
     }
     

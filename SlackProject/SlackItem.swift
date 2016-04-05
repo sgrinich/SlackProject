@@ -14,5 +14,6 @@ class SlackItem: NSManagedObject {
     @NSManaged var username:String?
     @NSManaged var realname:String?
     @NSManaged var title:String?
+    @NSManaged var image:NSData?
     
 }

@@ -117,9 +117,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     
-    func parseJSON (contentsOfURL: NSURL, encoding: NSStringEncoding) -> [(username:String, realname:String, title: String)]? {
+    func parseJSON (contentsOfURL: NSURL, encoding: NSStringEncoding) -> [(username:String, realname:String, title: String, image: NSData)]? {
         // Load the JSON file and parse it
-        var items:[(username:String, realname:String, title: String)]?
+        var items:[(username:String, realname:String, title: String, image: NSData)]?
 
         
         do {
@@ -131,11 +131,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 
                 for member in json["members"].arrayValue
                 {
-     
                     
                     let userProfile = member["profile"]
+
+//     
+//                    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+//                   
+////                        
+////                                                slackProfile.setInitialValues(username, realname: realname, title: title, image: profileImage!)
+////                                                self.profileList.append(slackProfile)
+//                    })
+//                    
                     
-                    let item = (username: member["name"].stringValue, realname: member["real_name"].stringValue, title: userProfile["title"].stringValue)
+                    
+                    
+                    let imageURL = userProfile["image_192"].stringValue
+                    let imageData = NSData(contentsOfURL: NSURL(string:imageURL)!)!
+//                    var profileImage =  UIImage(data: data!)
+                    
+                    
+                    let item = (username: member["name"].stringValue, realname: member["real_name"].stringValue, title: userProfile["title"].stringValue, image: imageData)
                     
                     items?.append(item)
                     
@@ -171,6 +186,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         slackItem.username = item.username
                         slackItem.realname = item.realname
                         slackItem.title = item.title
+                        slackItem.image = item.image
                         
                         do {
                             try managedObjectContext.save()
