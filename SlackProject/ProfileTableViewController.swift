@@ -14,6 +14,9 @@ class ProfileTableViewController: UITableViewController {
     
     var profileList = [SlackProfile]()
     var slackProfiles = [NSManagedObject]()
+    
+    var slackItems:[SlackItem] = []
+
 
 
     override func viewDidLoad() {
@@ -21,34 +24,45 @@ class ProfileTableViewController: UITableViewController {
         
         
         
-        let slackProfile = SlackProfile()
-        let imate = UIImage()
-        slackProfile.setInitialValues("stephen", realname: "stephen", title: "butterflyer", image: imate)
-        print("made slack proifle")
-        saveProfile(slackProfile)
-        
-        print("before 1")
-        
-        //1
-        let appDelegate =
-        UIApplication.sharedApplication().delegate as! AppDelegate
-        print("1 done")
-        let managedContext = appDelegate.managedObjectContext
-        
-        //2
-        let fetchRequest = NSFetchRequest(entityName: "SlackProfile")
-        print("2 done")
-        //3
-        do {
-            let results =
-            try managedContext.executeFetchRequest(fetchRequest)
-            slackProfiles = results as! [NSManagedObject]
-        } catch let error as NSError {
-            print("Could not fetch \(error), \(error.userInfo)")
+        if let managedObjectContext = (UIApplication.sharedApplication().delegate as? AppDelegate)?.managedObjectContext {
+            
+            let fetchRequest = NSFetchRequest(entityName: "SlackItem")
+            do {
+                slackItems = try managedObjectContext.executeFetchRequest(fetchRequest) as! [SlackItem]
+                print("in here!")
+            } catch {
+                print("Failed to retrieve record")
+                print(error)
+            }
         }
         
-        print("3 done")
         
+
+        
+//        print("before 1")
+//        
+//        //1
+//        let appDelegate =
+//        UIApplication.sharedApplication().delegate as! AppDelegate
+//        print("1 done")
+//        let managedContext = appDelegate.managedObjectContext
+//        
+//        //2
+//        let fetchRequest = NSFetchRequest(entityName: "SlackProfile")
+//        print("2 done")
+//        //3
+//        do {
+//            let results =
+//            try managedContext.executeFetchRequest(fetchRequest)
+//            slackProfiles = results as! [NSManagedObject]
+//        } catch let error as NSError {
+//            getSlackJSON()
+//            print("Could not fetch \(error), \(error.userInfo)")
+//            print("should have fetched in getSlackJSON")
+//        }
+//        
+//        print("3 done")
+//        
 //        getSlackJSON()
         
         
@@ -140,11 +154,11 @@ class ProfileTableViewController: UITableViewController {
     func saveProfile(givenProfile: SlackProfile) {
         //1
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        print("Save 1 done")
+//        print("Save 1 done")
         
         let managedContext = appDelegate.managedObjectContext
         
-        print("before 2")
+//        print("before 2")
         
         //2
         let entity =  NSEntityDescription.entityForName("SlackProfile",
@@ -154,7 +168,7 @@ class ProfileTableViewController: UITableViewController {
         let profile = NSManagedObject(entity: entity!,
             insertIntoManagedObjectContext: managedContext)
         
-        print("Save 2 done")
+//        print("Save 2 done")
         
         //3
         profile.setValue(givenProfile.username, forKey: "username")
@@ -162,7 +176,7 @@ class ProfileTableViewController: UITableViewController {
         profile.setValue(givenProfile.title, forKey: "title")
 //        profile.setValue(givenProfile.image, forKey: "image")
         
-        print("Save 3 done")
+//        print("Save 3 done")
         
         //4
         do {
@@ -189,15 +203,22 @@ class ProfileTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
        // return profileList.count
-        return slackProfiles.count
+//        return slackProfiles.count
+        return slackItems.count
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! ProfileTableViewCell
 //        let profile = self.profileList[indexPath.row] as! SlackProfile
-        let profile = self.slackProfiles[indexPath.row]
-        cell.usernameLabel.text = profile.valueForKey("username") as? String
+//        let profile = self.slackProfiles[indexPath.row]
+        let profile = self.slackItems[indexPath.row]
+        
+        
+//        cell.usernameLabel.text = profile.valueForKey("username") as? String
+        cell.usernameLabel.text = profile.username
 
+        
+        print(cell.usernameLabel.text)
         return cell
     }
     

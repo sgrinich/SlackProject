@@ -17,6 +17,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+//        let defaults = NSUserDefaults.standardUserDefaults()
+//        let isPreloaded = defaults.boolForKey("isPreloaded")
+//        if !isPreloaded {
+//            print("preloading")
+            preloadData()
+//            defaults.setBool(true, forKey: "isPreloaded")
+//        }
+        
         return true
     }
 
@@ -105,6 +113,115 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 abort()
             }
         }
+    }
+    
+    
+    func parseJSON (contentsOfURL: NSURL, encoding: NSStringEncoding) -> [SlackProfile]? {
+        // Load the CSV file and parse it
+        var items:[SlackProfile]?
+        
+        do {
+            let content = try String(contentsOfURL: contentsOfURL, encoding: encoding)
+            print(content)
+            if let dataFromString = content.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false) {
+                let json = JSON(data: dataFromString)
+//                print(json)
+                
+                items = []
+                
+                for member in json["members"].arrayValue
+                {
+                    print("test")
+                    let realname = member["real_name"].stringValue
+                    let username = member["name"].stringValue
+                    
+                    let userProfile = member["profile"]
+                    let title = userProfile["title"].stringValue
+                    
+                    
+                    let slackProfile = SlackProfile()
+                    let imate = UIImage()
+                    slackProfile.setInitialValues(username, realname: realname, title: title, image: imate)
+                    items?.append(slackProfile)
+                    
+                    
+                }
+                
+                
+                
+            }
+        } catch {
+            print(error)
+        }
+        
+        
+        return items
+    }
+    
+   
+    func preloadData () {
+        // Retrieve data from the source file
+        
+            // Remove all the menu items before preloading
+        
+        guard let remoteURL = NSURL(string: "https://slack.com/api/users.list?token=xoxp-4698769766-4698769768-18910479235-8fa82d53b2&pretty=1") else {
+            return
+        }
+
+        removeData()
+
+        
+            if let items = parseJSON(remoteURL, encoding: NSUTF8StringEncoding) {
+                // Preload the menu items
+//                let managedObjectContext = self.managedObjectContext
+                    for item in items {
+                        let slackItem = NSEntityDescription.insertNewObjectForEntityForName("SlackItem", inManagedObjectContext: managedObjectContext) as! SlackItem
+                        
+                        slackItem.username = item.username
+                        print(slackItem.username)
+                        slackItem.realname = item.realname
+                        slackItem.title = item.title
+                        //slackItem.image = item.image
+                        
+//                        if managedObjectContext.save(error) != true {
+//                            print("insert error: \(error!.localizedDescription)")
+//                        }
+//                        
+                        do {
+                            try managedObjectContext.save()
+                            //5
+//                            slackProfiles.append(profile)
+                            print("successfully saved a slack profile")
+                        } catch let error as NSError  {
+                            print("Could not save \(error), \(error.userInfo)")
+                        }
+                    }
+                
+            }
+        
+    }
+    
+    func removeData () {
+        // Remove the existing items
+         let managedObjectContext = self.managedObjectContext
+            let fetchRequest = NSFetchRequest(entityName: "SlackItem")
+            var e: NSError?
+        do {
+            let slackItems =
+            try managedObjectContext.executeFetchRequest(fetchRequest)
+
+            for item in slackItems {
+                managedObjectContext.deleteObject(item as! NSManagedObject)
+            }
+
+        
+        } catch let error as NSError {
+            print("Could not fetch \(error), \(error.userInfo)")
+        }
+        
+        
+
+        
     }
 
 }

@@ -11,13 +11,14 @@
 
 
 import Foundation
+import UIKit
 
 class SlackProfile {
     
     var username:String = "";
     var realname:String = "";
     var title:String = "";
-    var image = UIImage()
+    var image = UIImage();
     
     func setInitialValues(username:String, realname:String, title:String, image:UIImage){
         self.username = username;
