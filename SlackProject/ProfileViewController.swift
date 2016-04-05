@@ -32,11 +32,8 @@ class ProfileViewController: UIViewController, MFMailComposeViewControllerDelega
         super.viewDidLoad()
 
         if let profile = slackItem {
-            // do something with myData
             
             self.navigationItem.title = ""
-
-            
             
             titlelabel.text = profile.title
             
@@ -59,16 +56,12 @@ class ProfileViewController: UIViewController, MFMailComposeViewControllerDelega
             
             colorView.backgroundColor = colorWithHexString("#" + profile.color!)
             
-            
-            
-            
         } else {
             // no data was obtained
             print("error, not item received")
         }
     
     }
-    
     
 
     override func didReceiveMemoryWarning() {
@@ -123,12 +116,10 @@ class ProfileViewController: UIViewController, MFMailComposeViewControllerDelega
         controller.dismissViewControllerAnimated(true, completion: nil)
         
     }
+
     
     
-    
-    
-    
-    // Source: http://stackoverflow.com/questions/32297775/convert-hex-colors-to-rgb-in-swift-and-count-elements
+    // Source for this function: http://stackoverflow.com/questions/32297775/convert-hex-colors-to-rgb-in-swift-and-count-elements
     func colorWithHexString (hex:String) -> UIColor {
         var cString:String = hex.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()).uppercaseString
         
