@@ -105,9 +105,11 @@ class ProfileViewController: UIViewController, MFMailComposeViewControllerDelega
         return mailComposerVC
     }
     
-    func showSendMailErrorAlert() {
-        let sendMailErrorAlert = UIAlertView(title: "Could Not Send Email", message: "Your device could not send e-mail.  Please check e-mail configuration and try again.", delegate: self, cancelButtonTitle: "OK")
-        sendMailErrorAlert.show()
+    func showSendMailErrorAlert() {   
+        let alert = UIAlertController(title: "Could Not Send Email", message:"Your device could not send e-mail.  Please check e-mail configuration and try again.", preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .Default) { _ in })
+        self.presentViewController(alert, animated: true){}
+    
     }
     
     // MARK: MFMailComposeViewControllerDelegate
