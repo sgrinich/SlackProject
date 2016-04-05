@@ -5,6 +5,7 @@
 //  Created by Stephen Grinich on 4/4/16.
 //  Copyright © 2016 Stephen Grinich. All rights reserved.
 //
+// Some data methods based from this tutorial: http://www.appcoda.com/core-data-preload-sqlite-database/
 
 import UIKit
 import CoreData
@@ -17,14 +18,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-//        let defaults = NSUserDefaults.standardUserDefaults()
-//        let isPreloaded = defaults.boolForKey("isPreloaded")
-//        if !isPreloaded {
-//            print("preloading")
+        let defaults = NSUserDefaults.standardUserDefaults()
+        let isPreloaded = defaults.boolForKey("isPreloaded")
+        if !isPreloaded {
+            print("preloading")
             preloadData()
-//            defaults.setBool(true, forKey: "isPreloaded")
-//        }
-        
+            defaults.setBool(true, forKey: "isPreloaded")
+        }
+    
         return true
     }
 
@@ -116,33 +117,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     
-    func parseJSON (contentsOfURL: NSURL, encoding: NSStringEncoding) -> [SlackProfile]? {
-        // Load the CSV file and parse it
-        var items:[SlackProfile]?
+    func parseJSON (contentsOfURL: NSURL, encoding: NSStringEncoding) -> [(username:String, realname:String, title: String)]? {
+        // Load the JSON file and parse it
+        var items:[(username:String, realname:String, title: String)]?
+
         
         do {
             let content = try String(contentsOfURL: contentsOfURL, encoding: encoding)
-            print(content)
             if let dataFromString = content.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false) {
                 let json = JSON(data: dataFromString)
-//                print(json)
                 
                 items = []
                 
                 for member in json["members"].arrayValue
                 {
-                    print("test")
-                    let realname = member["real_name"].stringValue
-                    let username = member["name"].stringValue
+     
                     
                     let userProfile = member["profile"]
-                    let title = userProfile["title"].stringValue
                     
+                    let item = (username: member["name"].stringValue, realname: member["real_name"].stringValue, title: userProfile["title"].stringValue)
                     
-                    let slackProfile = SlackProfile()
-                    let imate = UIImage()
-                    slackProfile.setInitialValues(username, realname: realname, title: title, image: imate)
-                    items?.append(slackProfile)
+                    items?.append(item)
                     
                     
                 }
@@ -162,36 +157,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func preloadData () {
         // Retrieve data from the source file
         
-            // Remove all the menu items before preloading
-        
         guard let remoteURL = NSURL(string: "https://slack.com/api/users.list?token=xoxp-4698769766-4698769768-18910479235-8fa82d53b2&pretty=1") else {
             return
         }
 
         removeData()
 
-        
             if let items = parseJSON(remoteURL, encoding: NSUTF8StringEncoding) {
                 // Preload the menu items
-//                let managedObjectContext = self.managedObjectContext
                     for item in items {
                         let slackItem = NSEntityDescription.insertNewObjectForEntityForName("SlackItem", inManagedObjectContext: managedObjectContext) as! SlackItem
                         
                         slackItem.username = item.username
-                        print(slackItem.username)
                         slackItem.realname = item.realname
                         slackItem.title = item.title
-                        //slackItem.image = item.image
                         
-//                        if managedObjectContext.save(error) != true {
-//                            print("insert error: \(error!.localizedDescription)")
-//                        }
-//                        
                         do {
                             try managedObjectContext.save()
-                            //5
-//                            slackProfiles.append(profile)
-                            print("successfully saved a slack profile")
                         } catch let error as NSError  {
                             print("Could not save \(error), \(error.userInfo)")
                         }
