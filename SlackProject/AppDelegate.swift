@@ -5,7 +5,7 @@
 //  Created by Stephen Grinich on 4/4/16.
 //  Copyright © 2016 Stephen Grinich. All rights reserved.
 //
-// Some data methods based from this tutorial: http://www.appcoda.com/core-data-preload-sqlite-database/
+// Some code based from this tutorial: http://www.appcoda.com/core-data-preload-sqlite-database/
 
 import UIKit
 import CoreData
@@ -22,6 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().tintColor = UIColor.blackColor()
         UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor.blackColor()]
         
+        // Check to see if data has already been loaded from Slack API
         let defaults = NSUserDefaults.standardUserDefaults()
         let isPreloaded = defaults.boolForKey("isPreloaded")
         if !isPreloaded {
@@ -121,8 +122,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     
+    // The following methods handle JSON download and parsing
+    
+    // Load the JSON file and parses it for usabiltiy
     func parseJSON (contentsOfURL: NSURL, encoding: NSStringEncoding) -> [(username:String, realname:String, title: String, image: NSData, phone: String, email: String, color: String)]? {
-        // Load the JSON file and parse it
         var items:[(username:String, realname:String, title: String, image: NSData, phone: String, email: String, color: String)]?
 
         
@@ -133,25 +136,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 
                 items = []
                 
+                
                 for member in json["members"].arrayValue
                 {
                     
                     let userProfile = member["profile"]
-
-//     
-//                    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-//                   
-////                        
-////                                                slackProfile.setInitialValues(username, realname: realname, title: title, image: profileImage!)
-////                                                self.profileList.append(slackProfile)
-//                    })
-//                    
-                    
-                    
-                    
                     let imageURL = userProfile["image_192"].stringValue
                     let imageData = NSData(contentsOfURL: NSURL(string:imageURL)!)!
-                    
                     
                     let item = (username: member["name"].stringValue, realname: member["real_name"].stringValue, title: userProfile["title"].stringValue, image: imageData, phone: userProfile["phone"].stringValue, email: userProfile["email"].stringValue, color: member["color"].stringValue)
                     
@@ -182,7 +173,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         removeData()
 
             if let items = parseJSON(remoteURL, encoding: NSUTF8StringEncoding) {
-                // Preload the menu items
+                // Preload the slack items
                     for item in items {
                         let slackItem = NSEntityDescription.insertNewObjectForEntityForName("SlackItem", inManagedObjectContext: managedObjectContext) as! SlackItem
                         
@@ -209,7 +200,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Remove the existing items
          let managedObjectContext = self.managedObjectContext
             let fetchRequest = NSFetchRequest(entityName: "SlackItem")
-            var e: NSError?
         do {
             let slackItems =
             try managedObjectContext.executeFetchRequest(fetchRequest)
@@ -218,13 +208,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 managedObjectContext.deleteObject(item as! NSManagedObject)
             }
 
-        
         } catch let error as NSError {
             print("Could not fetch \(error), \(error.userInfo)")
         }
-        
-        
-
         
     }
 

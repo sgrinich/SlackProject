@@ -14,14 +14,10 @@ class ProfileTableViewController: UITableViewController {
     
     var slackItems:[SlackItem] = []
 
-
-
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        
+        // Get Slack items out of saved data
         if let managedObjectContext = (UIApplication.sharedApplication().delegate as? AppDelegate)?.managedObjectContext {
             
             let fetchRequest = NSFetchRequest(entityName: "SlackItem")
@@ -34,14 +30,7 @@ class ProfileTableViewController: UITableViewController {
             }
         }
         
-        // Need this so images load in TableViewCells right away
-//        dispatch_async(dispatch_get_main_queue(), {
-//            self.tableView.reloadData()
-//            })
-//        
-
     }
-    
     
     
     override func didReceiveMemoryWarning() {
@@ -74,14 +63,11 @@ class ProfileTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
-        
+        // Handles transition to detail view
         let storyboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
         let destination = storyboard.instantiateViewControllerWithIdentifier("profileViewController") as! ProfileViewController
-        
         let profile = self.slackItems[indexPath.row]
         destination.slackItem = profile
-        
-        print("touching")
         
         navigationController?.pushViewController(destination, animated: true)
 
