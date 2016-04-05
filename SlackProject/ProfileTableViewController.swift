@@ -16,6 +16,7 @@ class ProfileTableViewController: UITableViewController {
 
 
 
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -26,6 +27,7 @@ class ProfileTableViewController: UITableViewController {
             let fetchRequest = NSFetchRequest(entityName: "SlackItem")
             do {
                 slackItems = try managedObjectContext.executeFetchRequest(fetchRequest) as! [SlackItem]
+                
             } catch {
                 print("Failed to retrieve record")
                 print(error)
@@ -33,10 +35,10 @@ class ProfileTableViewController: UITableViewController {
         }
         
         // Need this so images load in TableViewCells right away
-        dispatch_async(dispatch_get_main_queue(), {
-            self.tableView.reloadData()
-            })
-        
+//        dispatch_async(dispatch_get_main_queue(), {
+//            self.tableView.reloadData()
+//            })
+//        
 
     }
     
@@ -57,19 +59,21 @@ class ProfileTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! ProfileTableViewCell
-
+        
         let profile = self.slackItems[indexPath.row]
         
         let image : UIImage = UIImage(data: profile.image!)!
 
         cell.usernameLabel.text = profile.username
         cell.profileImage.image = image
+//        cell.profileImage.layer.cornerRadius = cell.profileImage.layer.frame.width / 2
         
-//        cell.setNeedsLayout()
         return cell
     }
     
-    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
     
     
     

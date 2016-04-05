@@ -117,9 +117,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     
-    func parseJSON (contentsOfURL: NSURL, encoding: NSStringEncoding) -> [(username:String, realname:String, title: String, image: NSData)]? {
+    func parseJSON (contentsOfURL: NSURL, encoding: NSStringEncoding) -> [(username:String, realname:String, title: String, image: NSData, phone: String, email: String)]? {
         // Load the JSON file and parse it
-        var items:[(username:String, realname:String, title: String, image: NSData)]?
+        var items:[(username:String, realname:String, title: String, image: NSData, phone: String, email: String)]?
 
         
         do {
@@ -147,10 +147,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     
                     let imageURL = userProfile["image_192"].stringValue
                     let imageData = NSData(contentsOfURL: NSURL(string:imageURL)!)!
-//                    var profileImage =  UIImage(data: data!)
                     
                     
-                    let item = (username: member["name"].stringValue, realname: member["real_name"].stringValue, title: userProfile["title"].stringValue, image: imageData)
+                    let item = (username: member["name"].stringValue, realname: member["real_name"].stringValue, title: userProfile["title"].stringValue, image: imageData, phone: userProfile["phone"].stringValue, email: userProfile["email"].stringValue)
                     
                     items?.append(item)
                     
@@ -187,6 +186,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         slackItem.realname = item.realname
                         slackItem.title = item.title
                         slackItem.image = item.image
+                        slackItem.phone = item.phone
+                        slackItem.email = item.email
                         
                         do {
                             try managedObjectContext.save()
